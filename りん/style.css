@@ -221,6 +221,11 @@ section{
     color: var(--other-color);
     margin-top: 5rem;
 }
+@media (max-width: 767px){
+    section{
+        padding: ;
+    }
+}
 @media (max-width: 1770px){
     section{
         padding: 50px 32%;
