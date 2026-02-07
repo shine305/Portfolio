@@ -1,87 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Contact Us - Shine Linn</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap');
 
+        :root {
+            --primary-color: #333333;
+            /* Dark for contrast on light bg */
+            --accent-color: #888888;
+            --bg-color: #f0f0f0;
+            --text-color: #222222;
+            --card-bg: rgba(255, 255, 255, 0.25);
+            /* Frosted glass */
+            --input-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.7);
+            --glow: 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Agdasima', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 8%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            top: 0;
+        }
+
+        .logo {
+            color: var(--text-color);
+            font-size: 35px;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        span.input {
+            color: #666;
+            /* Subtle gray for "file" part */
+        }
+
+        nav ul li {
+            list-style: none;
+            display: inline-block;
+            padding: 10px 25px;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: capitalize;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: #888;
+        }
+
+        /* Hero/Contact Section - Liquid Background */
+        .contact-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 8% 50px;
+            background: linear-gradient(-45deg, #e0e0e0, #ffffff, #d3d3d3, #f5f5f5, #c0c0c0);
+            background-size: 400% 400%;
+            animation: liquid 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Liquid Overlay Effect */
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            /* Light overlay */
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        .contact-container {
+            position: relative;
+            z-index: 2;
+            /* Bring content above the overlay */
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Contact Info (Left) */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-info h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            background: linear-gradient(45deg, #333, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-info p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: #555;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* Contact Form (Right) - Enhanced Glassmorphism */
+        .contact-form {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-form:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), inset 0 0 30px rgba(255, 255, 255, 0.8);
+            transform: translateY(-5px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            color: #444;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--input-bg);
+            border: var(--glass-border);
+            border-radius: 8px;
+            color: #222;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #888;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        button[type="submit"] {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background: #000;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                text-align: center;
+                align-items: center;
+            }
+
+            .contact-hero {
+                padding-top: 120px;
+            }
+
+            nav {
+                padding: 20px 5%;
+            }
+
+            .logo {
+                font-size: 28px;
+            }
+        }
+
+        /* Animations */
+        @keyframes liquid {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <section>
-        <div class="section-header">
-            <div class="container">
-                <h2>Contact Us</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est modi expedita eveniet magnam quas dolore eos aliquid, id quam culpa sed officia repudiandae accusamus repellat sapiente suscipit? Cupiditate, in eveniet.</p>
+
+    <!-- Navigation -->
+    <nav>
+        <h2 class="logo">Pro<span class="input">file</span></h2>
+        <ul>
+            <li><a href="Profilo">Home</a></li>
+            <li><a href="SHINE.html">About Us</a></li>
+            <li><a href="simpleweb.html">Skills</a></li>
+            <li><a href="ContactUs.html" class="active">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="contact-hero">
+        <div class="contact-container">
+            <!-- Left Side: Info -->
+            <div class="contact-info">
+                <h1>Get in Touch</h1>
+                <p>Have a project in mind or want to collaborate? Feel free to reach out!</p>
+
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact@shinelinn.com</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+123 456 7890</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Tokyo, Japan</span>
+                </div>
+            </div>
+
+            <!-- Right Side: Form -->
+            <div class="contact-form">
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+
+                    <button type="submit">Send Message</button>
+                </form>
             </div>
         </div>
+    </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="contact-info">
-                    <div class="contact-info-item">
-                        <div class="contact-info-icon">
-                            <i class="ri-home-4-fill"></i>
-                        </div>
-
-                        <div class="contact-info-content">
-                            <h4>Address</h4>
-                            <p>東京部板橋区徳丸１−３１ー９</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-info-item">
-                        <div class="contact-info-icon">
-                            <i class="ri-phone-fill"></i>
-                        </div>
-
-                        <div class="contact-info-content">
-                            <h4>Phone</h4>
-                            <p>08058366663</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-info-item">
-                        <div class="contact-info-icon">
-                            <i class="ri-mail-fill"></i>
-                        </div>
-
-                        <div class="contact-info-content">
-                            <h4>Email</h4>
-                            <p>C220305@ccg.ac.jp</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-form">
-                    <form action="" id="contact-form">
-                        <h2>Send Message</h2>
-                        <div class="input-box">
-                            <input type="text" required="true">
-                            <span>Full Name</span>
-                        </div>
-
-                        <div class="input-box">
-                            <input type="email" required="true" id="">
-                            <span>Email</span>
-                        </div>
-
-                        <div class="input-box">
-                            <textarea required="true"></textarea>
-                            <span>Type your message...</span>
-                        </div>
-
-                        <div class="input-box">
-                            <input type="submit" value="send">
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </section>
 </body>
+
 </html>
